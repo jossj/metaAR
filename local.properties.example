@@ -1,0 +1,9 @@
+# Copy this file to local.properties (which is git-ignored) and fill in your values.
+
+# Path to your Android SDK installation
+sdk.dir=/path/to/Android/Sdk
+
+# GitHub personal access token (classic) with read:packages scope.
+# Required to download the Meta Wearables Device Access Toolkit from GitHub Packages.
+github_username=YOUR_GITHUB_USERNAME
+github_token=YOUR_GITHUB_TOKEN
