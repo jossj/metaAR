@@ -22,7 +22,7 @@
         <!-- MWDAT application ID — replace with the ID from the Meta Wearables Developer Portal -->
         <meta-data
             android:name="com.meta.wearable.mwdat.APPLICATION_ID"
-            android:value="YOUR_MWDAT_APPLICATION_ID" />
+            android:value="2167705547358894" />
 
         <activity
             android:name=".MainActivity"
