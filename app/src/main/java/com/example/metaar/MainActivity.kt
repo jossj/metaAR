@@ -9,13 +9,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.metaar.databinding.ActivityMainBinding
-import com.meta.wearable.mwdat.DeviceAccessClient
+import com.meta.wearable.dat.core.Wearables
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private var deviceAccessClient: DeviceAccessClient? = null
 
     private val requestPermissionsLauncher = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
@@ -54,22 +53,21 @@ class MainActivity : AppCompatActivity() {
     private fun initializeWearableSession() {
         lifecycleScope.launch {
             try {
-                val client = DeviceAccessClient.create(applicationContext)
-                deviceAccessClient = client
-                Log.d(TAG, "DeviceAccessClient created")
+                Wearables.initialize(applicationContext)
+                Log.d(TAG, "Wearables initialized")
 
-                client.connectedDevices.collect { devices ->
+                Wearables.devices.collect { devices ->
                     Log.d(TAG, "Connected devices: $devices")
                     val statusText = if (devices.isEmpty()) {
                         getString(R.string.status_no_devices)
                     } else {
-                        val names = devices.joinToString { it.name ?: it.id }
+                        val names = devices.joinToString { it.identifier }
                         getString(R.string.status_connected, names)
                     }
                     binding.statusText.text = statusText
                 }
             } catch (e: Exception) {
-                Log.e(TAG, "Failed to initialise DeviceAccessClient", e)
+                Log.e(TAG, "Failed to initialize Wearables", e)
                 binding.statusText.text = getString(R.string.status_error, e.message)
             }
         }
@@ -77,8 +75,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        deviceAccessClient?.close()
-        deviceAccessClient = null
     }
 
     companion object {
