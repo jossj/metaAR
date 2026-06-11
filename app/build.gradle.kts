@@ -52,4 +52,6 @@ dependencies {
 
     // Mock device for testing without physical hardware
     debugImplementation(libs.mwdat.mockdevice)
+
+    implementation(libs.nanohttpd)
 }

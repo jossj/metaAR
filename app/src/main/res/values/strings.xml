@@ -4,5 +4,6 @@
     <string name="status_initialising">Initialising Meta Wearables session…</string>
     <string name="status_no_devices">No devices connected</string>
     <string name="status_connected">Connected: %1$s</string>
+    <string name="status_streaming">Open %1$s to view live camera</string>
     <string name="status_error">Error: %1$s</string>
 </resources>
