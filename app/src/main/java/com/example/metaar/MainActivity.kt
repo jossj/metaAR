@@ -71,11 +71,10 @@ class MainActivity : AppCompatActivity() {
     private fun initializeWearableSession() {
         lifecycleScope.launch {
             try {
-                val client = DeviceAccessClient.create(applicationContext)
-                deviceAccessClient = client
-                Log.d(TAG, "DeviceAccessClient created")
+                Wearables.initialize(applicationContext)
+                Log.d(TAG, "Wearables initialized")
 
-                client.connectedDevices.collect { devices ->
+                Wearables.devices.collect { devices ->
                     Log.d(TAG, "Connected devices: $devices")
 
                     cameraJob?.cancel()
@@ -100,7 +99,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             } catch (e: Exception) {
-                Log.e(TAG, "Failed to initialise DeviceAccessClient", e)
+                Log.e(TAG, "Failed to initialize Wearables", e)
                 binding.statusText.text = getString(R.string.status_error, e.message)
             }
         }
